@@ -10,6 +10,6 @@ class Building extends Model
 
     public function firm()
     {
-        return $this->belongsTo("App\Model\Firm");
+        return $this->belongsTo("App\Firm");
     }
 }

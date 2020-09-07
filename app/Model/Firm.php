@@ -10,16 +10,16 @@ class Firm extends Model
 
     public function phones()
     {
-        return $this->hasMany("App\Model\Phone");
+        return $this->hasMany("App\Phone");
     }
 
     public function building()
     {
-        return $this->hasOne("App\Model\Building");
+        return $this->hasOne("App\Building");
     }
 
     public function categories()
     {
-        return $this->belongsToMany("App\Model\Category");
+        return $this->belongsToMany("App\Category");
     }
 }

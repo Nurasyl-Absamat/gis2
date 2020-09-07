@@ -10,7 +10,7 @@ class Category extends Model
 
     public function firms()
     {
-        return $this->belongsToMany('App\Model\Firm');
+        return $this->belongsToMany('App\Firm');
     }
     public function children()
     {
