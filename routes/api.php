@@ -23,4 +23,4 @@ Route::apiResources([
     'phones' => 'PhoneController',
     'firms' => 'FirmController',
     'categories' => 'CategoryController'
-    ]);
+]);

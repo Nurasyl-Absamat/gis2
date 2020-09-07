@@ -16,6 +16,7 @@ class Phones extends Migration
         Schema::create('phones', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('phone_num');
+            $table->integer('firm_id');
             $table->timestamps();
         });
     }
