@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class FirmCategory extends Migration
+class CategoryFirm extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class FirmCategory extends Migration
      */
     public function up()
     {
-        Schema::create('firm_category', function (Blueprint $table) {
+        Schema::create('category_firm', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('firm_id');
             $table->integer('category_id');
@@ -28,6 +28,6 @@ class FirmCategory extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('firm_category');
+        Schema::dropIfExists('category_firm');
     }
 }
