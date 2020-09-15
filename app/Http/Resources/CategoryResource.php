@@ -14,6 +14,8 @@ class CategoryResource extends JsonResource
      */
     public function toArray($request)
     {
+
+
         $firms = array();
         foreach ($this->firms as $firm){
             array_push($firms, $firm->id);
@@ -21,8 +23,9 @@ class CategoryResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'parent_id' => $this->parent_id,
+            'children' => $this->children,
             'firms' => $firms
         ];
+
     }
 }

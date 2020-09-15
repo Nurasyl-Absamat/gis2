@@ -14,12 +14,23 @@ class FirmResource extends JsonResource
      */
     public function toArray($request)
     {
+        $categories = array();
+        $phones = [];
+
+        foreach($this->categories as $category){
+            $categories[$category->title]= $category->id;
+        }
+
+        foreach($this->phones as $phone){
+            $phones[$phone->phone_num] =$phone->id;
+        }
+
         return [
             'id' => $this->id,
             'title' => $this->title,
             'building' => $this->building_id,
-            'categories' => new CategoryResource($this->categories),
-            'phones' => new PhoneResource($this->phones)
+            'categories' => json_encode($categories),
+            'phones' => json_encode($phones)
         ];
     }
 }
