@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Firm;
+use App\Http\Resources\FirmResource;
 use Illuminate\Http\Request;
-use App\Category;
-use App\Http\Resources\CategoryResource;
 
-class CategoryController extends Controller
+class FirmController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +15,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::with("children")->where('parent_id', null)->get();
+        $firms = Firm::with('phones', 'categories', 'building')->get();
 
-        return CategoryResource::collection($categories);
+        return FirmResource::collection($firms);
     }
 
     /**
@@ -28,9 +28,11 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $category = Category::create($request->all());
+        $firm = Firm::create($request->only('title', 'building_id'));
+        $firm->categories()->sync($request->category_ids);
 
-        return new CategoryResource($category);
+        return new FirmResource($firm);
+
     }
 
     /**
@@ -39,9 +41,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show(Firm $firm)
     {
-        return new CategoryResource($category);
+        return new FirmResource($firm);
     }
 
     /**
@@ -51,11 +53,12 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, Firm $firm)
     {
-        $category->update($request->only('title', 'parent_id'));
+        $firm->update($request->only('title', 'building_id'));
+        $firm->sync($request->category_ids);
 
-        return new CategoryResource($category);
+        return new FirmResource($firm);
     }
 
     /**
@@ -64,10 +67,10 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy(Firm $firm)
     {
-        $category->delete();
+        $firm->delete();
 
-        return response()->json("Category deleted", 204);
+        return response('Firm deleted', 204);
     }
 }

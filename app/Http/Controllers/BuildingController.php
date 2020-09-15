@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Building;
+use App\Http\Resources\BuildingResource;
 use Illuminate\Http\Request;
-use App\Category;
-use App\Http\Resources\CategoryResource;
 
-class CategoryController extends Controller
+class BuildingController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +15,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::with("children")->where('parent_id', null)->get();
+        $buildings = Building::with('firm')->get();
 
-        return CategoryResource::collection($categories);
+        return BuildingResource::collection($buildings);
     }
 
     /**
@@ -28,9 +28,9 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $category = Category::create($request->all());
+        $building = Building::create($request->all());
 
-        return new CategoryResource($category);
+        return new BuildingResource($building);
     }
 
     /**
@@ -39,9 +39,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show(Building $building)
     {
-        return new CategoryResource($category);
+        return new BuildingResource($building);
     }
 
     /**
@@ -51,11 +51,11 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, Building $building)
     {
-        $category->update($request->only('title', 'parent_id'));
+        $building->update($request->only('address', 'geoposition'));
 
-        return new CategoryResource($category);
+        return new BuildingResource($building);
     }
 
     /**
@@ -64,10 +64,11 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy(Building $building)
     {
-        $category->delete();
+        $building->delete();
 
-        return response()->json("Category deleted", 204);
+        return response('Building deleted', 204);
     }
+
 }

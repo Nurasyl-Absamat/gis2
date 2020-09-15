@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\PhoneResource;
 use Illuminate\Http\Request;
-use App\Category;
-use App\Http\Resources\CategoryResource;
+use App\Phone;
 
-class CategoryController extends Controller
+class PhoneController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +15,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::with("children")->where('parent_id', null)->get();
 
-        return CategoryResource::collection($categories);
+        return PhoneResource::collection(Phone::with('firm')->get());
     }
 
     /**
@@ -28,9 +27,9 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $category = Category::create($request->all());
+        $phone = Phone::create($request->all());
 
-        return new CategoryResource($category);
+        return new PhoneResource($phone);
     }
 
     /**
@@ -39,9 +38,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show(Phone $phone)
     {
-        return new CategoryResource($category);
+        return new PhoneResource($phone);
     }
 
     /**
@@ -51,11 +50,11 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, Phone $phone)
     {
-        $category->update($request->only('title', 'parent_id'));
+        $phone->update($request->only(['phone_num', 'firm_id']));
 
-        return new CategoryResource($category);
+        return new PhoneResource($phone);
     }
 
     /**
@@ -64,10 +63,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy(Phone $phone)
     {
-        $category->delete();
-
-        return response()->json("Category deleted", 204);
+        $phone->delete();
+        return response()->json('Phone number deleted', 204);
     }
 }

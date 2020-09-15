@@ -6,10 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Building extends Model
 {
-    protected $fillable = ["address", "firm_id", "geoposition"];
+    protected $fillable = ["address", "geoposition"];
 
-    public function firm()
+    public function firms()
     {
-        return $this->belongsTo("App\Firm");
+        return $this->hasMany("App\Firm");
     }
 }
