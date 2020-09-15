@@ -17,7 +17,6 @@ class CreateBuildingsTable extends Migration
             $table->id();
             $table->string("address");
             $table->string("geoposition");
-            $table->integer("firm_id");
             $table->timestamps();
         });
     }

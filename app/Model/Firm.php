@@ -15,11 +15,13 @@ class Firm extends Model
 
     public function building()
     {
-        return $this->hasOne("App\Building");
+        return $this->belongsTo("App\Building");
     }
 
     public function categories()
     {
         return $this->belongsToMany("App\Category");
     }
+
+
 }

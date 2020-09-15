@@ -22,7 +22,6 @@ class FirmSeeder extends Seeder
         Building::create([
             'address' => 'Karagandy, prospect nursultana',
             'geoposition' => '213214.124.12.412.41',
-            'firm_id' => 1
         ]);
         Phone::create([
             'phone_num' => '1234-32143124-2142134',
