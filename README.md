@@ -85,27 +85,30 @@ Run the database seeder and you're done
 ## Routes
 
 - <b>GET</b> `api/buildings/inarea` - <b>Returns all of the buildings in the area. Takes longtitude and latitude. Radius is 400 by default.</b>
-api/buildings/inarea?lat=-33.8637673&lng=151.170178&radius=500
+
+***api/buildings/nearests?lat=-33.8637673&lng=151.170178&radius=500***
+<img src="https://github.com/Nurasyl-Absamat/gis2/blob/master/screens/BuildingNearest.png" />
 
 - <b>GET</b> `api/buildings` - Returns all of the buildings.
 - <b>GET</b> `api/buildings/{building}` - Returns exact building by id.
 - <b>PUT</b> `api/buildings/{building}` - Updates latitude, longtitude and address of the building by id.
-api/buildings/nearests?lat=-33.8637673&lng=151.170178&radius=500
 
-<img src="https://github.com/Nurasyl-Absamat/gis2/screens/BuildingNearest.png" />
+
+
 
 - <b>DELETE</b> `api/buildings/{building}` - Deletes the building by id.
 - <b>GET</b> `api/categories` - Returns all parent categories with children in it. Children are categories also.
 - <b>GET</b> `api/categories/{category}` - Returns category by id. If has request limit and/or offset returns firms with limit or skips some of it.
-EXAMPLE api/categories/1?limit=1&offset=3
-<img src="https://github.com/Nurasyl-Absamat/gis2/screens/limit_ofset.png" />
+***EXAMPLE api/categories/1?limit=1&offset=3*** 
+<img src="https://github.com/Nurasyl-Absamat/gis2/blob/master/screens/limit_ofset.png" />
 ***Update Store Delete skipped because they do almost the same thing***
 - <b>GET</b> `api/firms` - Returns paginated firms. Has filter that will load need data for it.
-EXAMPLE api/firms?page=11 to see how works load filter api/firms?filter[]=phones&filter[]=building
+
+***EXAMPLE api/firms?page=11 to see how works load filter api/firms?filter[]=phones&filter[]=building***
 ***Phones CRUD I am lazy to write it all xD***
 
 ## Database
-<img src="https://github.com/Nurasyl-Absamat/gis2/screens/Database.png" />
+<img src="https://github.com/Nurasyl-Absamat/gis2/blob/master/screens/Database.png" />
 
 ## Factories
 <ul>
