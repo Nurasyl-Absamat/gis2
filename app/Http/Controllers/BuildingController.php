@@ -19,6 +19,25 @@ class BuildingController extends Controller
     {
         return FirmResource::collection($building->firms->load('categories'));
     }
+
+    public function buildingsInCircle(Request $request) {
+        $latitude = $request->lat;
+        $longitude = $request->lng;
+        $radius = $request->radius;
+
+        $buildings = Building::selectRaw("id, address, lat, lng,
+                         ( 6371000 * acos( cos( radians(?) ) *
+                           cos( radians( lat ) )
+                           * cos( radians( lng ) - radians(?)
+                           ) + sin( radians(?) ) *
+                           sin( radians( lat ) ) )
+                         ) AS distance", [$latitude, $longitude, $latitude])
+            ->having("distance", "<", $radius)
+            ->orderBy("distance",'asc')
+            ->get();
+
+        return BuildingResource::collection($buildings);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -64,7 +83,7 @@ class BuildingController extends Controller
      */
     public function update(Request $request, Building $building)
     {
-        $building->update($request->only('address', 'geoposition'));
+        $building->update($request->only('address', 'lat', 'lng'));
 
         return new BuildingResource($building);
     }

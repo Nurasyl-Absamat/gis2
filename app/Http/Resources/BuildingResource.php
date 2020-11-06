@@ -17,7 +17,7 @@ class BuildingResource extends JsonResource
         return[
             'id' => $this->id,
             'address' => $this->address,
-            'geoposition' => $this->geoposition,
+            'geoposition' => $this->lat . ", ". $this->lng,
             'firms' => FirmResource::collection($this->whenLoaded('firms'))
         ];
     }

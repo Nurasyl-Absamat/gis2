@@ -5,9 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Http\Resources\CategoryResource;
+use App\Http\Resources\FirmResource;
 
 class CategoryController extends Controller
 {
+    public function getFirmsByCategory($id) {
+        $category = Category::find($id);
+
+        return FirmResource::collection($category->firms);
+    }
     /**
      * Display a listing of the resource.
      *

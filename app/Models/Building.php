@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Building extends Model
 {
-    protected $fillable = ["address", "geoposition"];
+    protected $fillable = ["address", "lat", "lng"];
 
     public function firms()
     {
