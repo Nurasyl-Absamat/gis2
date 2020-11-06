@@ -15,9 +15,11 @@ class CategoryFirm extends Migration
     {
         Schema::create('category_firm', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('firm_id');
-            $table->integer('category_id');
+            $table->integer('firm_id')->unsigned();
+            $table->integer('category_id')->unsigned();
             $table->timestamps();
+            $table->foreign('firm_id')->references('id')->on('firms')->onDelete('cascade');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
         });
     }
 
@@ -28,6 +30,7 @@ class CategoryFirm extends Migration
      */
     public function down()
     {
+
         Schema::dropIfExists('category_firm');
     }
 }

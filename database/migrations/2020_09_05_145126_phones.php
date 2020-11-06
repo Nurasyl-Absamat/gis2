@@ -16,8 +16,10 @@ class Phones extends Migration
         Schema::create('phones', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('phone_num');
-            $table->integer('firm_id');
+            $table->integer('firm_id')->unsigned();
             $table->timestamps();
+
+            $table->foreign('firm_id')->references('id')->on('firms')->onDelete("cascade");
         });
     }
 

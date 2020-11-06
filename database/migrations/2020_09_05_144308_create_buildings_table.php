@@ -14,11 +14,14 @@ class CreateBuildingsTable extends Migration
     public function up()
     {
         Schema::create('buildings', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->string('address');
             $table->float('lat', 10, 6);
             $table->float('lng', 10, 6);
             $table->timestamps();
+        });
+        Schema::table('firms', function(Blueprint $table){
+            $table->foreign('building_id')->references('id')->on('buildings')->onDelete('cascade');
         });
     }
 
@@ -30,5 +33,6 @@ class CreateBuildingsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('buildings');
+
     }
 }
