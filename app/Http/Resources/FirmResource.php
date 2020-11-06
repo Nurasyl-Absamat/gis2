@@ -27,7 +27,7 @@ class FirmResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'building' => $this->building_id,
+            'building' => new BuildingResource($this->whenLoaded("building")),
             'categories' => CategoryResource::collection($this->whenLoaded('categories')),
             'phones' => PhoneResource::collection($this->whenLoaded('phones'))
         ];

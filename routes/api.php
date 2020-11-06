@@ -27,4 +27,4 @@ Route::apiResources([
     'categories' => 'CategoryController'
 ]);
 Route::get('/building/{building}/firms', "BuildingController@displayFirmbyId");
-Route::post('/buildings/nearests/', "BuildingController@buildingsInCircle");
+Route::get('/buildings/nearests/', "BuildingController@buildingsInCircle");

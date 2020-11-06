@@ -15,7 +15,14 @@ class FirmController extends Controller
      */
     public function index()
     {
-        $firms = Firm::with('phones', 'categories', 'building')->get();
+        $perPage = request('perPage') ?: 10;
+        $firms = Firm::paginate($perPage);
+
+        if($select = request()->filter) {
+            $firms->load($select);
+        }
+
+
 
         return FirmResource::collection($firms);
     }
