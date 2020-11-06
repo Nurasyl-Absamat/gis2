@@ -16,9 +16,16 @@ class FirmSeeder extends Seeder
     public function run()
     {
         Building::create([
-            'address' => 'Karagandy, prospect nursultana',
-            'geoposition' => '213214.124.12.412.41',
+            'address' => '580 Darling Street, Rozelle, NSW',
+            'lat' => -33.861034,
+            'lng' => 151.171936
         ]);
+        Building::create([
+            'address' => '76 Wilford Street, Newtown, NSW',
+            'lat' => -33.898113,
+            'lng' => 151.174469
+        ]);
+
         $firm = Firm::create([
             'title' => 'Wooppay',
             'building_id' => 1
