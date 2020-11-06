@@ -1,5 +1,7 @@
 <?php
 
+use App\Building;
+use App\Http\Resources\FirmResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -24,3 +26,4 @@ Route::apiResources([
     'firms' => 'FirmController',
     'categories' => 'CategoryController'
 ]);
+Route::get('/building/{building}/firms', "BuildingController@displayFirmbyId");

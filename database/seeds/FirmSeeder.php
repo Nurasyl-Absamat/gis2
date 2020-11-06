@@ -1,9 +1,9 @@
 <?php
 
-use App\Building;
-use App\Category;
-use App\Firm;
-use App\Phone;
+use App\Models\Building;
+use App\Models\Category;
+use App\Models\Firm;
+use App\Models\Phone;
 use Illuminate\Database\Seeder;
 
 class FirmSeeder extends Seeder
@@ -15,14 +15,15 @@ class FirmSeeder extends Seeder
      */
     public function run()
     {
-        $firm = Firm::create([
-            'title' => 'Wooppay',
-            'building_id' => 1
-        ]);
         Building::create([
             'address' => 'Karagandy, prospect nursultana',
             'geoposition' => '213214.124.12.412.41',
         ]);
+        $firm = Firm::create([
+            'title' => 'Wooppay',
+            'building_id' => 1
+        ]);
+
         Phone::create([
             'phone_num' => '1234-32143124-2142134',
             'firm_id' => 1
@@ -42,6 +43,19 @@ class FirmSeeder extends Seeder
         $cat2 = Category::create([
             'title' => 'Meat',
             'parent_id' => $cat1->id,
+        ]);
+        $cat3 = Category::create([
+            'title' => 'Beef',
+            'parent_id' => $cat2->id,
+        ]);
+        $cat4 = Category::create([
+            'title' => 'Cars',
+            'parent_id' => null,
+        ]);
+
+        $cat5 = Category::create([
+            'title' => 'Cabriolet',
+            'parent_id' => $cat4->id,
         ]);
 
         $firm->categories()->sync([1,2]);
