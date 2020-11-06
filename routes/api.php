@@ -19,6 +19,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::get('/buildings/inarea', "BuildingController@buildingsInCircle");
+
 
 Route::apiResources([
     'buildings' => 'BuildingController',
@@ -26,5 +28,5 @@ Route::apiResources([
     'firms' => 'FirmController',
     'categories' => 'CategoryController'
 ]);
-Route::get('/building/{building}/firms', "BuildingController@displayFirmbyId");
-Route::get('/buildings/nearests/', "BuildingController@buildingsInCircle");
+
+Route::get('/buildings/{building}/firms', "BuildingController@displayFirmbyId");

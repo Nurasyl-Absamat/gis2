@@ -1,61 +1,122 @@
-<p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
+## Laravel 7.X 2 gis API project
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+ Simplified version of the 2Gis guides. I provided three objects
+ <ul>
+    <li>Firm</li>
+    <li>Building</li>   
+    <li>Category</li>   
+ </ul>
+ The project allows to create/read/update/delete the firms, buildings and categories find nearest buildings with search by circle. Filter for firms and categories.
+## Firm
+It is a card of the organization in the building.
+It has own building and categories.
 
-## About Laravel
+## Building
+Contains at least information about a specific building.
+Has many Firms in one building. Has geoposition by lutitude and longtitude.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Category
+Categories allow you to classify the type of activity of firms in the directory. Have a title and
+can be nested into each other in a tree-like form. In a simple implementation, the level
+nesting will be 2-3 categories.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Clone the repository
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+    git clone https://github.com/Nurasyl-Absamat/gis2.git
 
-## Learning Laravel
+Switch to the repo folder
+    
+    cd gis2
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Install all the dependencies using composer
+    
+    composer install
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Copy the example env file and make the required configuration changes in the .env file
 
-## Laravel Sponsors
+    cp .env.example .env
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+Generate a new application key
 
-### Premium Partners
+    php artisan key:generate
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[OP.GG](https://op.gg)**
+Run the database migrations (**Set the database connection in .env before migrating**)
 
-## Contributing
+    php artisan migrate
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Start the local development server
 
-## Code of Conduct
+    php artisan serve
+    
+You can now access the server at http://localhost:8000
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
 
-## Security Vulnerabilities
+**Command list**
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+    git clone https://github.com/Nurasyl-Absamat/mini-forum.git
+    cd laravel-realworld-example-app
+    composer install
+    cp .env.example .env
+    php artisan key:generate
+
+## Database seeding
+
+Run the database seeder and you're done
+
+    php artisan db:seed
+
+***Note*** : It's recommended to have a clean database before seeding. You can refresh your migrations at any point to clean the database by running the following command
+
+    php artisan migrate:refresh
+    
+
+# Code Overview
+
+## Folders
+
+- `app/Models` - Contains all the Eloquent models
+- `app/Http/Controllers` - Contains all the api controllers
+- `app/Http/Resources` - Contains all the api resources
+- `database/factories` - Contains the model factory for all the models
+- `database/migrations` - Contains all the database migrations
+- `database/seeds` - Contains the database seeder
+- `routes` - Contains all the api routes defined in api.php file
+
+## Routes
+
+- <b>GET</b> `api/buildings/inarea` - <b>Returns all of the buildings in the area. Takes longtitude and latitude. Radius is 400 by default.</b>
+api/buildings/inarea?lat=-33.8637673&lng=151.170178&radius=500
+
+- <b>GET</b> `api/buildings` - Returns all of the buildings.
+- <b>GET</b> `api/buildings/{building}` - Returns exact building by id.
+- <b>PUT</b> `api/buildings/{building}` - Updates latitude, longtitude and address of the building by id.
+api/buildings/nearests?lat=-33.8637673&lng=151.170178&radius=500
+
+<img src="https://github.com/Nurasyl-Absamat/gis2/screens/BuildingNearest.png" />
+
+- <b>DELETE</b> `api/buildings/{building}` - Deletes the building by id.
+- <b>GET</b> `api/categories` - Returns all parent categories with children in it. Children are categories also.
+- <b>GET</b> `api/categories/{category}` - Returns category by id. If has request limit and/or offset returns firms with limit or skips some of it.
+EXAMPLE api/categories/1?limit=1&offset=3
+<img src="https://github.com/Nurasyl-Absamat/gis2/screens/limit_ofset.png" />
+***Update Store Delete skipped because they do almost the same thing***
+- <b>GET</b> `api/firms` - Returns paginated firms. Has filter that will load need data for it.
+EXAMPLE api/firms?page=11 to see how works load filter api/firms?filter[]=phones&filter[]=building
+***Phones CRUD I am lazy to write it all xD***
+
+## Database
+<img src="https://github.com/Nurasyl-Absamat/gis2/screens/Database.png" />
+
+## Factories
+<ul>
+    <li>BuildingFactory</li>
+    <li>FirmFactory</li>
+    <li>PhoneFactory</li>
+</ul>
+
+
 
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+

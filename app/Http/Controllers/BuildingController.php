@@ -20,6 +20,11 @@ class BuildingController extends Controller
         return FirmResource::collection($building->firms->load('categories'));
     }
 
+    /**
+     * Display all firms that locates in exact building
+     * @param Building $building
+     * @return App\Http\Resources\FirmResource;
+     */
     public function buildingsInCircle(Request $request) {
         $latitude = $request->lat;
         $longitude = $request->lng;

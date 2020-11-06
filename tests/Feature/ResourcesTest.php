@@ -2,8 +2,7 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
+use App\Models\Building;
 use Tests\TestCase;
 
 class ResourcesTest extends TestCase
@@ -15,8 +14,6 @@ class ResourcesTest extends TestCase
      */
     public function testExample()
     {
-        $response = $this->get('/');
-
-        $response->assertStatus(200);
+        $this->assertEquals(5, Building::count());
     }
 }
