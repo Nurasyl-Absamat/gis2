@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Firm;
+use App\Models\Firm;
 use App\Http\Resources\FirmResource;
 use Illuminate\Http\Request;
 
@@ -43,7 +43,7 @@ class FirmController extends Controller
      */
     public function show(Firm $firm)
     {
-        return new FirmResource($firm);
+        return new FirmResource($firm->load('phones', 'categories', 'building'));
     }
 
     /**

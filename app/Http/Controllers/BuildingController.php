@@ -2,20 +2,31 @@
 
 namespace App\Http\Controllers;
 
-use App\Building;
+use App\Models\Building;
 use App\Http\Resources\BuildingResource;
+use App\Http\Resources\FirmResource;
 use Illuminate\Http\Request;
 
 class BuildingController extends Controller
+
 {
+    /**
+     * Display all firms that locates in exact building
+     * @param Building $building
+     * @return App\Http\Resources\FirmResource;
+     */
+    public function displayFirmbyId(Building $building)
+    {
+        return FirmResource::collection($building->firms->load('categories'));
+    }
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return App\Http\Resources\BuildingResource;
      */
     public function index()
     {
-        $buildings = Building::with('firm')->get();
+        $buildings = Building::all();
 
         return BuildingResource::collection($buildings);
     }
@@ -24,7 +35,7 @@ class BuildingController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return App\Http\Resources\BuildingResource;
      */
     public function store(Request $request)
     {
@@ -37,11 +48,11 @@ class BuildingController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return App\Http\Resources\BuildingResource;
      */
     public function show(Building $building)
     {
-        return new BuildingResource($building);
+        return new BuildingResource($building->load('firms'));
     }
 
     /**
@@ -49,7 +60,7 @@ class BuildingController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return App\Http\Resources\BuildingResource;
      */
     public function update(Request $request, Building $building)
     {
@@ -62,7 +73,7 @@ class BuildingController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function destroy(Building $building)
     {

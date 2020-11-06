@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\PhoneResource;
 use Illuminate\Http\Request;
-use App\Phone;
+use App\Models\Phone;
 
 class PhoneController extends Controller
 {
@@ -29,7 +29,7 @@ class PhoneController extends Controller
     {
         $phone = Phone::create($request->all());
 
-        return new PhoneResource($phone);
+        return new PhoneResource($phone->load('firm'));
     }
 
     /**
@@ -40,7 +40,7 @@ class PhoneController extends Controller
      */
     public function show(Phone $phone)
     {
-        return new PhoneResource($phone);
+        return new PhoneResource($phone->load('firm'));
     }
 
     /**
@@ -54,7 +54,7 @@ class PhoneController extends Controller
     {
         $phone->update($request->only(['phone_num', 'firm_id']));
 
-        return new PhoneResource($phone);
+        return new PhoneResource($phone->load('firm'));
     }
 
     /**

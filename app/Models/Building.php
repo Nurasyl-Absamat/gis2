@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,6 +10,6 @@ class Building extends Model
 
     public function firms()
     {
-        return $this->hasMany("App\Firm");
+        return $this->hasMany("App\Models\Firm");
     }
 }

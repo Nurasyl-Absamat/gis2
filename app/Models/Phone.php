@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,6 +10,6 @@ class Phone extends Model
 
     public function firm()
     {
-        return $this->belongsTo('App\Firm');
+        return $this->belongsTo('App\Models\Firm');
     }
 }

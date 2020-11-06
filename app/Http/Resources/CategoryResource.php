@@ -16,15 +16,13 @@ class CategoryResource extends JsonResource
     {
 
 
-        $firms = array();
-        foreach ($this->firms as $firm){
-            array_push($firms, $firm->id);
-        }
+
         return [
             'id' => $this->id,
             'title' => $this->title,
             'children' => $this->children,
-            'firms' => $firms
+            'firms' => FirmResource::collection($this->whenLoaded('firms')),
+
         ];
 
     }

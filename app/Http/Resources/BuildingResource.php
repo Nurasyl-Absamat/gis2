@@ -18,7 +18,7 @@ class BuildingResource extends JsonResource
             'id' => $this->id,
             'address' => $this->address,
             'geoposition' => $this->geoposition,
-            'firm' => $this->firms
+            'firms' => FirmResource::collection($this->whenLoaded('firms'))
         ];
     }
 }

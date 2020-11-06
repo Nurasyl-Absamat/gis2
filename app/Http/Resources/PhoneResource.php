@@ -17,7 +17,7 @@ class PhoneResource extends JsonResource
         return [
             'id' => $this->id,
             'phone_number' => $this->phone_num,
-            'firm' => $this->firm
+            'firm' => new FirmResource($this->whenLoaded('firm'))
         ];
     }
 }
