@@ -47,7 +47,14 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        return new CategoryResource($category->load('firms'));
+        $limit = request('limit') ?: 10;
+        $offset = request('offset') ?: 0;
+
+        $category->load(['firms' => function ($query) use($limit, $offset){
+            return $query->orderBy('created_at')->limit($limit)->offset($offset);
+        }]);
+
+        return new CategoryResource($category);
     }
 
     /**
